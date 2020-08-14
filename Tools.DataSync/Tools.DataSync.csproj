@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="appsettings.Deployment.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Common.Auth\Common.Auth.csproj" />
+      <ProjectReference Include="..\Common.Config\Common.Config.csproj" />
+      <ProjectReference Include="..\Common.DocDb\Common.DocDb.csproj" />
+      <ProjectReference Include="..\Common.KeyVault\Common.KeyVault.csproj" />
+      <ProjectReference Include="..\Common.Kusto\Common.Kusto.csproj" />
+      <ProjectReference Include="..\Common.Postgresql\Common.Postgresql.csproj" />
+      <ProjectReference Include="..\Common.Repositories\Common.Repositories.csproj" />
+      <ProjectReference Include="..\Common.Storage\Common.Storage.csproj" />
+      <ProjectReference Include="..\Common.Telemetry\Common.Telemetry.csproj" />
+      <ProjectReference Include="..\Models\Models.csproj" />
+    </ItemGroup>
+
+</Project>

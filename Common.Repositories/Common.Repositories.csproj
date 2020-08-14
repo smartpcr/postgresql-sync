@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Common.Auth\Common.Auth.csproj" />
+      <ProjectReference Include="..\Common.Config\Common.Config.csproj" />
+      <ProjectReference Include="..\Common.DocDb\Common.DocDb.csproj" />
+      <ProjectReference Include="..\Common.KeyVault\Common.KeyVault.csproj" />
+      <ProjectReference Include="..\Common.Kusto\Common.Kusto.csproj" />
+      <ProjectReference Include="..\Common.Storage\Common.Storage.csproj" />
+      <ProjectReference Include="..\Models\Models.csproj" />
+    </ItemGroup>
+
+</Project>

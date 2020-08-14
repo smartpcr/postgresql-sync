@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Common.Postgresql</RootNamespace>
+    <AssemblyName>Common.Postgresql</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Npgsql.Bulk" Version="0.8.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+<!--    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.89" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Auth\Common.Auth.csproj" />
+    <ProjectReference Include="..\Common.Config\Common.Config.csproj" />
+    <ProjectReference Include="..\Common.DocDb\Common.DocDb.csproj" />
+    <ProjectReference Include="..\Common.KeyVault\Common.KeyVault.csproj" />
+    <ProjectReference Include="..\Common.Kusto\Common.Kusto.csproj" />
+    <ProjectReference Include="..\Common.Storage\Common.Storage.csproj" />
+    <ProjectReference Include="..\Common.Telemetry\Common.Telemetry.csproj" />
+  </ItemGroup>
+
+</Project>
