@@ -640,13 +640,15 @@ namespace Common.DocDb
             return default(T);
         }
 
-        public async Task ExecuteQuery(
+        public async Task<int> ExecuteQuery(
             Type entityType,
             string query,
             Func<IList<object>, CancellationToken, Task> onBatchReceived,
             int batchSize = 100,
             CancellationToken cancel = default)
         {
+            int totalRetrieved = 0;
+            
             try
             {
                 var docQuery = Client
@@ -660,6 +662,7 @@ namespace Common.DocDb
                     output.AddRange(response);
                     if (output.Count >= batchSize)
                     {
+                        totalRetrieved += output.Count;
                         await onBatchReceived(output, cancel);
                         output= new List<object>();
                     }
@@ -667,9 +670,12 @@ namespace Common.DocDb
 
                 if (output.Count > 0)
                 {
+                    totalRetrieved += output.Count;
                     await onBatchReceived(output, cancel);
                     output.Clear();
                 }
+
+                return totalRetrieved;
             }
             catch (DocumentClientException e)
             {
@@ -681,8 +687,9 @@ namespace Common.DocDb
             }
         }
 
-        public async Task ExecuteQuery<T>(string query, Func<IList<T>, CancellationToken, Task> onBatchReceived, int batchSize = 100, CancellationToken cancel = default)
+        public async Task<int> ExecuteQuery<T>(string query, Func<IList<T>, CancellationToken, Task> onBatchReceived, int batchSize = 100, CancellationToken cancel = default)
         {
+            int totalRetrieved = 0;
             try
             {
                 var docQuery = Client
@@ -696,16 +703,22 @@ namespace Common.DocDb
                     output.AddRange(response);
                     if (output.Count >= batchSize)
                     {
+                        totalRetrieved += output.Count;
                         await onBatchReceived(output, cancel);
                         output= new List<T>();
+                        _logger.LogInformation($"retrieved {totalRetrieved} records...");
                     }
                 }
 
                 if (output.Count > 0)
                 {
+                    totalRetrieved += output.Count;
                     await onBatchReceived(output, cancel);
                     output.Clear();
+                    _logger.LogInformation($"done, total retrieved records: {totalRetrieved}.");
                 }
+
+                return totalRetrieved;
             }
             catch (DocumentClientException e)
             {

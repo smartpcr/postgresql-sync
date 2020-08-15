@@ -18,7 +18,7 @@ namespace Models
             TS = DateTime.UtcNow; // this will always be overwritten by docdb
         }
 
-        [JsonProperty("id"), MaxLength(36)] public string Id { get; set; }
+        [JsonProperty("id"), StringLength(36)] public string Id { get; set; }
 
         [JsonProperty(PropertyName = "_ts")]
         [JsonConverter(typeof(UnixDateTimeConverter))]

@@ -13,6 +13,7 @@ namespace Common.Kusto
     using System.Data;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.Config;
 
     public interface IKustoClient : IDisposable
     {
@@ -60,10 +61,4 @@ namespace Common.Kusto
         #endregion
     }
 
-    public enum IngestMode
-    {
-        AppendOnly,
-        InsertNew,
-        Refresh
-    }
 }

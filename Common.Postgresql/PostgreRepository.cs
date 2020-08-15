@@ -11,6 +11,7 @@ namespace Common.Postgresql
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.Config;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Npgsql.Bulk;
@@ -25,24 +26,32 @@ namespace Common.Postgresql
         {
             logger = loggerFactory.CreateLogger<PostgreRepository<T>>();
             context = dbContext;
-            // EntityFrameworkManager.ContextFactory = context => dbContext;
             table = context.Set<T>();
         }
         
-        public async Task<int> Ingest(IEnumerable<T> source, CancellationToken cancel)
+        public async Task<int> Ingest(IEnumerable<T> source, IngestMode ingestMode, CancellationToken cancel)
         {
             var count = source.Count();
             logger.LogInformation($"adding {typeof(T).Name}...");
             var stopwatch = Stopwatch.StartNew();
-            // foreach (var record in source)
-            // {
-            //     await table.AddAsync(record, cancel);    
-            // }
-            // await context.BulkInsertAsync(source, cancel);
+            
             var uploader = new NpgsqlBulkUploader(context);
             await uploader.InsertAsync(source);
             logger.LogInformation($"it took {stopwatch.Elapsed} to injest {count} records");
             return count;
+        }
+
+        private IEnumerable<string> GetIds(CancellationToken cancel)
+        {
+            var entityType = context.Model.FindEntityType(typeof(T));
+            var pkProp = entityType?.GetProperties().FirstOrDefault(p => p.IsPrimaryKey());
+            if (pkProp == null) return null;
+            var colName = pkProp.GetColumnName();
+            var query = $"select {colName} from {entityType.GetSchema()}.{entityType.GetTableName()}";
+            var entities = table.FromSqlRaw(query).ToList();
+            var ids = entities.Select(e => pkProp.PropertyInfo.GetValue(e)?.ToString()).Where(s => s != null).ToList();
+            logger.LogInformation($"total of {ids.Count} ids found");
+            return ids;
         }
     }
 }

@@ -38,8 +38,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|x64.Build.0 = Debug|Any CPU
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -50,6 +48,8 @@ Global
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Release|x64.Build.0 = Release|Any CPU
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Release|x86.ActiveCfg = Release|Any CPU
 		{34538112-EEEE-4663-8809-882D79EF7B20}.Release|x86.Build.0 = Release|Any CPU
+		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|Any CPU.ActiveCfg = EFCore|Any CPU
+		{34538112-EEEE-4663-8809-882D79EF7B20}.Debug|Any CPU.Build.0 = EFCore|Any CPU
 		{6B03A75D-A708-4EBD-AEFC-59361EE01B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B03A75D-A708-4EBD-AEFC-59361EE01B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B03A75D-A708-4EBD-AEFC-59361EE01B33}.Debug|x64.ActiveCfg = Debug|Any CPU

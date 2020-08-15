@@ -134,14 +134,14 @@ namespace Common.DocDb
 
         Task<T> ExecuteScalar<T>(string query, string fieldName, CancellationToken cancel);
 
-        Task ExecuteQuery(
+        Task<int> ExecuteQuery(
             Type entityType,
             string query,
             Func<IList<object>, CancellationToken, Task> onBatchReceived,
             int batchSize = 100,
             CancellationToken cancel = default);
 
-        Task ExecuteQuery<T>(
+        Task<int> ExecuteQuery<T>(
             string query,
             Func<IList<T>, CancellationToken, Task> onBatchReceived,
             int batchSize = 100,

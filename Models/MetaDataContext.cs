@@ -63,7 +63,7 @@ namespace Models
                     {
                         // if (prop.Name.Equals("Id", StringComparison.OrdinalIgnoreCase))
                         // {
-                        //     prop.AsProperty()?.Builder.HasColumnType("uuid");
+                        //     prop.AsProperty()?.Builder.HasMaxLength(36);
                         // }
 
                         IAnnotation maxLen = prop.GetAnnotations()?.FirstOrDefault(a => a.Name.Equals("MaxLength"));

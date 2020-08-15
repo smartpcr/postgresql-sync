@@ -14,21 +14,21 @@ namespace Models
         #region common props
         [Key, Required, MaxLength(255)]
         public string DeviceName { get; set; }
-        [Required, MaxLength(50), Index]
+        [Required, MaxLength(50)]
         public string DcName { get; set; }
-        [Index] public long DcCode { get; set; }
-        [Index] public DeviceType DeviceType { get; set; }
-        [Index] public State DeviceState { get; set; }
-        [Index] public string Hierarchy { get; set; }
-        [Index] public string PanelName { get; set; }
-        [Index] public string ColoName { get; set; }
+        public long DcCode { get; set; }
+        public DeviceType DeviceType { get; set; }
+        public State DeviceState { get; set; }
+        public string Hierarchy { get; set; }
+        public string PanelName { get; set; }
+        public string ColoName { get; set; }
         #endregion
 
         #region relation props
-        [Index] public string PrimaryParent { get; set; }
-        [Index] public string SecondaryParent { get; set; }
-        [Index] public string MaintenanceParent { get; set; }
-        [Index] public string RedundantDeviceNames { get; set; }
+        public string PrimaryParent { get; set; }
+        public string SecondaryParent { get; set; }
+        public string MaintenanceParent { get; set; }
+        public string RedundantDeviceNames { get; set; }
         #endregion
 
         #region capacity props
@@ -39,9 +39,9 @@ namespace Models
         #endregion
 
         #region datatype props
-        [Index] public string DataType { get; set; }
+        public string DataType { get; set; }
         public string ConfiguredObjectType { get; set; }
-        [Index] public string DriverName { get; set; }
+        public string DriverName { get; set; }
         public string ConnectionName { get; set; }
         public string IpAddress { get; set; }
         public string PortNumber { get; set; }

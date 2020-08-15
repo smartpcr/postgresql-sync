@@ -9,9 +9,10 @@ namespace Common.Postgresql
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.Config;
 
     public interface IPostgreRepository<T> where T : class, new()
     {
-        Task<int> Ingest(IEnumerable<T> source, CancellationToken cancel);
+        Task<int> Ingest(IEnumerable<T> source, IngestMode ingestMode, CancellationToken cancel);
     }
 }

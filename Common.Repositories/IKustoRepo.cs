@@ -12,6 +12,7 @@ namespace Common.Repositories
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.Config;
     using Common.Kusto;
 
     public interface IKustoRepo<T> where T : class, new()

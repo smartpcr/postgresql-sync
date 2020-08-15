@@ -28,14 +28,34 @@ namespace Common.DocDb
                 : "select * from c";
         }
 
-        public string BuildQuery(string filterClause, string sortField, bool isDenscending, int skip, int take)
+        public string BuildQuery(string filterClause, string sortField = null, bool isDenscending = false, int skip = 0, int take = -1)
         {
-            var query = !string.IsNullOrEmpty(TypeField) && !string.IsNullOrEmpty(TypeValue)
-                ? $"select * from c where c.{TypeField} == \"{TypeValue}\" and {filterClause}"
-                : $"select * from c where {filterClause}";
+            string query;
+            if (string.IsNullOrEmpty(filterClause))
+            {
+                query = !string.IsNullOrEmpty(TypeField) && !string.IsNullOrEmpty(TypeValue)
+                    ? $"select * from c where c.{TypeField} == \"{TypeValue}\""
+                    : $"select * from c";
+            }
+            else
+            {
+                query = !string.IsNullOrEmpty(TypeField) && !string.IsNullOrEmpty(TypeValue)
+                    ? $"select * from c where c.{TypeField} == \"{TypeValue}\" and {filterClause}"
+                    : $"select * from c where {filterClause}";
+            }
 
-            var sortDirection = isDenscending ? "desc" : "asc";
-            return $"{query} order by c.{sortField} {sortDirection} offset {skip} limit {take}";
+            if (!string.IsNullOrEmpty(sortField))
+            {
+                var sortDirection = isDenscending ? "desc" : "asc";
+                query += $" order by c.{sortField} {sortDirection}";
+            }
+
+            if (skip > 0 || take > 0)
+            {
+                query += $" offset {skip} limit {take}";
+            }
+
+            return query;
         }
     }
 }

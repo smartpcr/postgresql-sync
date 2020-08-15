@@ -9,7 +9,7 @@ namespace Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class DataCenter
+    public class DataCenter : BaseEntity
     {
         [Key, Required, MaxLength(50)]
         public string DcName { get; set; }
@@ -23,7 +23,8 @@ namespace Models
         public string ClassName { get; set; }
         public string PhaseName { get; set; }
         public string CoolingType { get; set; }
+        [MaxLength(1000)]
         public string HVACType { get; set; }
-        public string MSAssetId { get; set; }
+        public long MSAssetId { get; set; }
     }
 }

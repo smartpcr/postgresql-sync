@@ -14,9 +14,8 @@ namespace Common.Repositories
         Task<int> Count(string whereSql);
         Task<IEnumerable<T>> Query(string whereSql);
         Task<IEnumerable<T>> Query(string whereSqlTemplate, IList<string> ids, int batchSize = 100);
-
-        Task<PagedResult<T>> QueryPaged(string whereSql, string orderByField, bool isDescending = false, int skip = 0,
-            int take = 10);
+        Task<PagedResult<T>> QueryPaged(string whereSql, string orderByField, bool isDescending = false, int skip = 0, int take = 10);
+        Task<int> QueryInBatches(string whereSql, Func<IList<T>, CancellationToken, Task> onBatchReceived, int batchSize = 1000, CancellationToken cancel = default);
 
         Task<T> GetById(string id);
         Task<T> Create(T newInstance);

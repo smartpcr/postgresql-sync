@@ -28,8 +28,7 @@ namespace Common.Repositories
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Serialization;
 
-    public class DocDbRepository<T>: IDocDbRepository<T>
-        where T : BaseEntity, new()
+    public class DocDbRepository<T>: IDocDbRepository<T> where T : BaseEntity, new()
     {
         private readonly EntityStoreSettings _dataSettings;
         private readonly IDocDbClient _docDbClient;
@@ -124,6 +123,13 @@ namespace Common.Repositories
                 Total = total,
                 Items = items.ToList()
             };
+        }
+
+        public async Task<int> QueryInBatches(string whereSql, Func<IList<T>, CancellationToken, Task> onBatchReceived, int batchSize = 1000, CancellationToken cancel = default)
+        {
+            var query = _dataSettings.BuildQuery(whereSql);
+            var totalRetrieved = await _docDbClient.ExecuteQuery(query, onBatchReceived, batchSize, cancel);
+            return totalRetrieved;
         }
 
         public async Task<T> GetById(string id)
