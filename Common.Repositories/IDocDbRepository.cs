@@ -4,6 +4,7 @@ namespace Common.Repositories
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.Config;
     using Common.DocDb;
     using Models;
 

@@ -8,6 +8,7 @@ namespace Common.Postgresql
 {
     using System;
     using System.Collections.Concurrent;
+    using Common.Config;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
@@ -29,7 +30,7 @@ namespace Common.Postgresql
             logger = this.loggerFactory.CreateLogger<PostgreRepoFactory>();
         }
         
-        public IPostgreRepository<T> CreateRepository<T>(DbContext context) where T : class, new()
+        public IPostgreRepository<T> CreateRepository<T>(DbContext context) where T : BaseEntity, new()
         {
             if (_repositories.TryGetValue(typeof(T).Name, out var found) && found is IPostgreRepository<T> repo) return repo;
 

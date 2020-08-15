@@ -8,13 +8,14 @@ namespace Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Common.Config;
 
     public class PowerDevice : BaseEntity
     {
         #region common props
         [Key, Required, MaxLength(255)]
         public string DeviceName { get; set; }
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50), ForeignKey("data_centers")]
         public string DcName { get; set; }
         public long DcCode { get; set; }
         public DeviceType DeviceType { get; set; }
@@ -68,5 +69,10 @@ namespace Models
         public string FriendlyName { get; set; }
         public Tag Tags { get; set; }
         #endregion
+
+        public override string GetKeyValue()
+        {
+            return DeviceName;
+        }
     }
 }

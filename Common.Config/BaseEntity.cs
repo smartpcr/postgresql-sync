@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Models
+namespace Common.Config
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -23,5 +23,7 @@ namespace Models
         [JsonProperty(PropertyName = "_ts")]
         [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTime TS { get; set; }
+
+        public abstract string GetKeyValue();
     }
 }

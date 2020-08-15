@@ -8,6 +8,7 @@ namespace Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Common.Config;
 
     public class DataCenter : BaseEntity
     {
@@ -26,5 +27,10 @@ namespace Models
         [MaxLength(1000)]
         public string HVACType { get; set; }
         public long MSAssetId { get; set; }
+        
+        public override string GetKeyValue()
+        {
+            return DcName;
+        }
     }
 }

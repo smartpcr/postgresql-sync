@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using Common.Config;
     using Microsoft.Extensions.Logging;
     using Models;
 

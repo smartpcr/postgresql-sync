@@ -12,7 +12,7 @@ namespace Common.Config
 
     public class RetryBlock
     {
-        public static async Task RetryOnThrottling(int times, TimeSpan delay, Func<Task> operation, ILogger logger)
+        public static async Task RetryOnThrottling(int times, TimeSpan delay, Func<Task> operation, ILogger logger, Predicate<Exception> exceptionFilter = null)
         {
             var attempts = 0;
             do
@@ -25,14 +25,16 @@ namespace Common.Config
                 }
                 catch (Exception ex)
                 {
-                    if (attempts >= times)
+                    if ((exceptionFilter?.Invoke(ex) == true || exceptionFilter == null) && attempts < times)
+                    {
+                        logger?.LogError(ex, ex.Message);
+                        await Task.Delay(delay);
+                    }
+                    else
                     {
                         logger?.LogError(ex, $"failed after {attempts} attempts");
                         throw;
                     }
-
-                    logger?.LogError(ex, ex.Message);
-                    await Task.Delay(delay);
                 }
             } while (true);
         }

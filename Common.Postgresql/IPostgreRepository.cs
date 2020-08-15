@@ -11,8 +11,11 @@ namespace Common.Postgresql
     using System.Threading.Tasks;
     using Common.Config;
 
-    public interface IPostgreRepository<T> where T : class, new()
+    public interface IPostgreRepository<T> where T : BaseEntity, new()
     {
+        Task<IEnumerable<T>> GetAll(CancellationToken cancel);
+        Task<Dictionary<string, int>> CountBy(string propName, CancellationToken cancel);
+        Task<IEnumerable<string>> GetKeys(CancellationToken cancel);
         Task<int> Ingest(IEnumerable<T> source, IngestMode ingestMode, CancellationToken cancel);
     }
 }
